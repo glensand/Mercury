@@ -1,7 +1,5 @@
 #include "ModeBase.h"
 #include "App/GameInterface.h"
-#include "Player/Player.h"
-#include "Graphics/IView.h"
 
 namespace merc
 {
@@ -18,10 +16,17 @@ Mode ModeBase::GetMode() const
     return m_mode;
 }
 
+void ModeBase::SetOnStepCallback(std::function<void()>&& callback)
+{
+    m_onStepCallback = std::move(callback);
+}
+
 void ModeBase::Render() const
 {
-    auto&& terrain = m_gameInterface.Player->GetExploredTerrain();
-    m_gameInterface.View->Render(terrain);
+    if(m_onStepCallback)
+    {
+        m_onStepCallback();
+    }
 }
 
 }

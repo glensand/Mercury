@@ -4,7 +4,7 @@
 namespace merc
 {
 
-class GameInterface;
+struct GameInterface;
 class ICommand;
 
 class CommandServer final

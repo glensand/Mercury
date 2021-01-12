@@ -8,7 +8,7 @@ namespace merc
 class SapperSwitch final : public ICommand
 {
 public:
-    SapperSwitch(CommandType type);
+    SapperSwitch(bool on);
     virtual ~SapperSwitch() = default;
 
 private:
@@ -18,7 +18,7 @@ private:
 
     virtual CommandType GetCommandType() const override;
 
-    CommandType m_type;
+    bool m_sapperOn;
 };
 
 }

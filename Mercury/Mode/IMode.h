@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 namespace merc
 {
 
@@ -20,6 +22,9 @@ public:
     virtual Mode GetMode() const = 0;
 
     virtual void OnFrame() = 0;
+
+    // TODO:: use boost::signal
+    virtual void SetOnStepCallback(std::function<void()>&& callback) = 0;
 };
 
 }

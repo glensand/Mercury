@@ -65,6 +65,7 @@
     <ClCompile Include="Command\SapperSwitch.cpp" />
     <ClCompile Include="Graphics\ConsoleView.cpp" />
     <ClCompile Include="Mode\ModeBase.cpp" />
+    <ClCompile Include="Input\ConsoleArgs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command\ICommand.h">
@@ -123,5 +124,6 @@
     <ClInclude Include="Graphics\ConsoleView.h" />
     <ClInclude Include="Graphics\IView.h" />
     <ClInclude Include="Mode\ModeBase.h" />
+    <ClInclude Include="Input\ConsoleArgs.h" />
   </ItemGroup>
 </Project>

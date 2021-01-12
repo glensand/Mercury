@@ -2,25 +2,22 @@
 #include "Command/CommandType.h"
 #include "App/GameInterface.h"
 #include "Player/Player.h"
-#include <stdexcept>
 
 namespace merc
 {
 
-SapperSwitch::SapperSwitch(CommandType type)
-    : m_type(type)
+SapperSwitch::SapperSwitch(bool on)
+    : m_sapperOn(on)
 {
 
 }
 
 void SapperSwitch::Execute(GameInterface& gameInterface)
 {
-    if (m_type == CommandType::SapperOff)
-        gameInterface.Player->RemoveSapper();
-    else if (m_type == CommandType::SapperOn)
+    if(m_sapperOn)
         gameInterface.Player->AddSapper();
     else
-        throw std::runtime_error("SapperSwitch::Execute: invalid command type");
+        gameInterface.Player->RemoveSapper();
 }
 
 void SapperSwitch::Undo(GameInterface& gameInterface)
@@ -30,7 +27,7 @@ void SapperSwitch::Undo(GameInterface& gameInterface)
 
 CommandType SapperSwitch::GetCommandType() const
 {
-    return m_type;
+    return CommandType::Sapper;
 }
 
 }

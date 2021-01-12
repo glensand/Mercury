@@ -1,5 +1,6 @@
 #include "App.h"
 #include "Input/ConsoleInput.h"
+#include "Input/ConsoleArgs.h"
 #include "World/World.h"
 #include "World/Terrain/TerrainLoader.h"
 #include "Player/Player.h"
@@ -34,7 +35,7 @@ void App::Run() const
 
 void App::OnFrame() const
 {
-    m_gameInterface.Input->Scan();
+    m_gameInterface.Input->Process();
 
     m_gameInterface.CommandServer->OnFrame();
 
@@ -43,7 +44,8 @@ void App::OnFrame() const
 
 void App::CreateWorld(ConsoleArgs& args)
 {
-    const TerrainLoader loader(""); // TODO extract file name, inject loader via factory/constructor
+    // TODO use named args..., inject loader via factory/constructor
+    const TerrainLoader loader(args.GetArg(1));
     m_gameInterface.World = new World(loader.Load());
 }
 
@@ -55,6 +57,13 @@ void App::CreatePlayer(ConsoleArgs& args)
 void App::CreateMode(ConsoleArgs& args)
 {
     m_gameInterface.Mode = new ManualMode(m_gameInterface);
+
+    // we forced to update view for each simulation step
+    // honest async render operation isn't suitable in this case
+    m_gameInterface.Mode->SetOnStepCallback([&]
+        {
+            m_gameInterface.View->Render(m_gameInterface.Player->GetExploredTerrain());
+        });
 }
 
 void App::CreateView(ConsoleArgs& args)
@@ -64,7 +73,7 @@ void App::CreateView(ConsoleArgs& args)
 
 void App::CreateInput(ConsoleArgs& args)
 {
-    m_gameInterface.Input = new ConsoleInput();
+    m_gameInterface.Input = new ConsoleInput;
 }
 
 }

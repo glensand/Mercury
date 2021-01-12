@@ -1,27 +1,17 @@
 #include "App/App.h"
+#include "Input/ConsoleArgs.h"
 #include <exception>
 #include <iostream>
 
-namespace merc
+int main(int argc, char* argv[])
 {
-
-class ConsoleArgs
-{
-
-};
-
-}
-
-int main()
-{
-    merc::ConsoleArgs args;
+    merc::ConsoleArgs args{ argc, argv };
     merc::App app;
 
     try
     {
         app.Open(args);
         app.Run();
-
     }
     catch(const std::exception& ex)
     {

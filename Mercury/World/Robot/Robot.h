@@ -14,14 +14,16 @@ enum class Direction : unsigned char
 {
     Left,
     Right,
-    Front,
-    Back,
+    Up,
+    Down,
+
+    Count,
 };
 
 enum class State : unsigned char
 {
     Normal,
-    Exposed,
+    Exploded,
 };
 
 class Robot : public IEntity

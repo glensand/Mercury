@@ -89,6 +89,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Mercury</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,6 +150,7 @@
     <ClCompile Include="Command\SapperSwitch.cpp" />
     <ClCompile Include="Command\Scan.cpp" />
     <ClCompile Include="Graphics\ConsoleView.cpp" />
+    <ClCompile Include="Input\ConsoleArgs.cpp" />
     <ClCompile Include="Input\ConsoleInput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mode\GrabMode.cpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="Command\Scan.h" />
     <ClInclude Include="Graphics\ConsoleView.h" />
     <ClInclude Include="Graphics\IView.h" />
+    <ClInclude Include="Input\ConsoleArgs.h" />
     <ClInclude Include="Input\ConsoleInput.h" />
     <ClInclude Include="Input\IInput.h" />
     <ClInclude Include="Mode\GrabMode.h" />

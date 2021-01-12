@@ -19,7 +19,7 @@ private:
 
     virtual CommandType GetCommandType() const override;
 
-    Direction m_direction{ Direction::Front };
+    Direction m_direction{ Direction::Up };
 };
 
 }

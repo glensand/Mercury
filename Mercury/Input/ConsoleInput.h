@@ -1,23 +1,36 @@
 #pragma once
 
 #include "IInput.h"
-#include <vector>
+#include <unordered_map>
+#include <functional>
 
 namespace merc
 {
 
+enum class CommandType : unsigned char;
+
 class ConsoleInput final : public IInput
 {
+    using TCreator = std::function<ICommand*()>;
 public:
-    ConsoleInput() = default;
+    ConsoleInput();
     ~ConsoleInput();
 
-    virtual void Scan() override;
+    virtual void Process() override;
 
     virtual ICommand* PopCommand() override;
 
 private:
-    std::vector<ICommand*> m_commands;
+
+    void InitializeCommandCreators();
+
+    static ICommand* ScanMove();
+    static ICommand* ScanMode();
+    static ICommand* ScanSapper();
+
+    ICommand* m_command { nullptr };
+
+    std::unordered_map<std::string, TCreator> m_creators;
 };
 
 }

@@ -2,6 +2,7 @@
 
 #include "Command/ICommand.h"
 #include "Mode/IMode.h"
+#include <any>
 
 namespace merc
 {
@@ -9,7 +10,7 @@ namespace merc
 class ChangeMode final : public ICommand
 {
 public:
-    ChangeMode(Mode mode);
+    ChangeMode(Mode mode, std::any&& argument);
     virtual ~ChangeMode() = default;
 
 private:
@@ -22,6 +23,7 @@ private:
     IMode* CreateByType(GameInterface& gameInterface) const;
 
     Mode m_mode;
+    std::any m_argument;
 };
 
 }

@@ -9,8 +9,7 @@ enum class CommandType : unsigned char
     Grab,
     Scan,
     SetMode,
-    SapperOn,
-    SapperOff,
+    Sapper,
 
     Count,
 };

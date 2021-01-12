@@ -11,6 +11,7 @@ enum class CellType : unsigned char
     Rock,
     Apple,
     Bomb,
+    Unknown,
 
     Count,
 };
@@ -28,7 +29,7 @@ public:
 
 private:
     IEntity* m_entityOnCell{ nullptr };
-    CellType m_type{ CellType::Empty };
+    CellType m_type{ CellType::Unknown };
 };
 
 }
