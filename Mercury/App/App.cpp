@@ -1,19 +1,26 @@
 #include "App.h"
-#include "Input/ConsoleInput.h"
+#include "Input/CommandParser.h"
 #include "Input/ConsoleArgs.h"
 #include "World/World.h"
 #include "World/Terrain/TerrainLoader.h"
 #include "Player/Player.h"
 #include "Command/CommandServer.h"
 #include "Mode/ManualMode.h"
-#include "Graphics/ConsoleView.h"
+#include "Graphics/SfmlView.h"
+
+#include <sstream>
 
 namespace merc
 {
 
 App::~App()
 {
-
+    delete m_gameInterface.Player;
+    delete m_gameInterface.World;
+    delete m_gameInterface.CommandParser;
+    delete m_gameInterface.CommandServer;
+    delete m_gameInterface.View;
+    delete m_gameInterface.Mode;
 }
 
 void App::Open(ConsoleArgs& args)
@@ -28,19 +35,39 @@ void App::Open(ConsoleArgs& args)
 
 void App::Run() const
 {
+    OnFirstFrame();
+
     for(;;)
     {
         OnFrame();
     }
 }
 
+void App::Render() const
+{
+    m_gameInterface.View->Render(m_gameInterface.Player->GetExploredTerrain());
+}
+
+void App::OnFirstFrame() const
+{
+    Render();
+}
+
 void App::OnFrame() const
 {
-    m_gameInterface.Input->Process();
+    if(const auto command = ScanCommand())
+    {
+        m_gameInterface.CommandServer->Execute(command);
 
-    m_gameInterface.CommandServer->OnFrame();
+        m_gameInterface.Mode->OnFrame();
+    }
+}
 
-    m_gameInterface.Mode->OnFrame();
+ICommand* App::ScanCommand() const
+{
+    auto&& inputCommand = m_gameInterface.View->ScanConsole();
+    std::stringstream commandStream(inputCommand);
+    return m_gameInterface.CommandParser->Parse(commandStream);
 }
 
 void App::CreateWorld(ConsoleArgs& args)
@@ -63,20 +90,20 @@ void App::CreateMode()
     // honest async render operation isn't suitable in this case
     m_gameInterface.Mode->SetOnStepCallback([&]
         {
-            m_gameInterface.View->Render(m_gameInterface.Player->GetExploredTerrain());
+            Render();
         });
 }
 
 void App::CreateView()
 {
-    m_gameInterface.View = new ConsoleView;
+    m_gameInterface.View = new SfmlView;
 
     m_gameInterface.View->Open();
 }
 
 void App::CreateInput()
 {
-    m_gameInterface.Input = new ConsoleInput;
+    m_gameInterface.CommandParser = new CommandParser;
 }
 
 void App::CreateCommandServer()

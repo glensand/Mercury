@@ -13,13 +13,10 @@ public:
     CommandServer(GameInterface& gameInterface);
     ~CommandServer();
 
-    void OnFrame();
+    void Execute(ICommand* command);
 
     void UndoLast();
-
 private:
-
-    void ExecuteCommand(ICommand* command);
 
     GameInterface& m_gameInterface;
     // TODO:: use unique_pointer (bu'r i suppose this kind of ugly mess)

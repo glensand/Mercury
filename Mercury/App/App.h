@@ -5,6 +5,7 @@
 namespace merc
 {
 
+class ICommand;
 class ConsoleArgs;
 
 class App final
@@ -20,7 +21,10 @@ public:
 
 private:
 
+    void Render() const;
+    void OnFirstFrame() const;
     void OnFrame() const;
+    ICommand* ScanCommand() const;
 
     // TODO: it is better to use factory for each module
     void CreateWorld(ConsoleArgs& args);

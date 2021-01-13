@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace merc
 {
@@ -10,6 +11,8 @@ class IView
 public:
 
     virtual ~IView() = default;
+
+    virtual const std::string& ScanConsole() = 0;
 
     virtual void Render(const Terrain& terrain) = 0;
 

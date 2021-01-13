@@ -7,7 +7,7 @@ class IWorld;
 class Player;
 class IMode;
 class IView;
-class IInput;
+class ICommandParser;
 class CommandServer;
 
 struct GameInterface final
@@ -16,7 +16,7 @@ struct GameInterface final
     Player* Player{ nullptr };
     IMode* Mode{ nullptr };
     IView* View{ nullptr };
-    IInput* Input{ nullptr };
+    ICommandParser* CommandParser{ nullptr };
     CommandServer* CommandServer{ nullptr };
 };
 

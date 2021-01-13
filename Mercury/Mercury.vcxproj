@@ -86,14 +86,16 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Mercury</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Mercury; $(SolutionDir)Deps\SFML\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Deps\SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;winmm.lib;freetype.lib;opengl32.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -102,14 +104,18 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Mercury; $(SolutionDir)Deps\SFML\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>sfml-graphics-s.lib;winmm.lib;freetype.lib;opengl32.lib;sfml-window-s.lib;sfml-system-s.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Deps\SFML\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -150,8 +156,9 @@
     <ClCompile Include="Command\SapperSwitch.cpp" />
     <ClCompile Include="Command\Scan.cpp" />
     <ClCompile Include="Graphics\ConsoleView.cpp" />
+    <ClCompile Include="Graphics\SfmlView.cpp" />
     <ClCompile Include="Input\ConsoleArgs.cpp" />
-    <ClCompile Include="Input\ConsoleInput.cpp" />
+    <ClCompile Include="Input\CommandParser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mode\GrabMode.cpp" />
     <ClCompile Include="Mode\ManualMode.cpp" />
@@ -180,9 +187,10 @@
     <ClInclude Include="Command\Scan.h" />
     <ClInclude Include="Graphics\ConsoleView.h" />
     <ClInclude Include="Graphics\IView.h" />
+    <ClInclude Include="Graphics\SfmlView.h" />
     <ClInclude Include="Input\ConsoleArgs.h" />
-    <ClInclude Include="Input\ConsoleInput.h" />
-    <ClInclude Include="Input\IInput.h" />
+    <ClInclude Include="Input\CommandParser.h" />
+    <ClInclude Include="Input\ICommandParser.h" />
     <ClInclude Include="Mode\GrabMode.h" />
     <ClInclude Include="Mode\IMode.h" />
     <ClInclude Include="Mode\ManualMode.h" />

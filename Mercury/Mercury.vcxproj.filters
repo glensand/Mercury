@@ -54,7 +54,6 @@
     </ClCompile>
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="App\App.cpp" />
-    <ClCompile Include="Input\ConsoleInput.cpp" />
     <ClCompile Include="Command\CommandServer.cpp" />
     <ClCompile Include="World\Robot\Sapper.cpp" />
     <ClCompile Include="Command\Move.cpp" />
@@ -66,6 +65,8 @@
     <ClCompile Include="Graphics\ConsoleView.cpp" />
     <ClCompile Include="Mode\ModeBase.cpp" />
     <ClCompile Include="Input\ConsoleArgs.cpp" />
+    <ClCompile Include="Graphics\SfmlView.cpp" />
+    <ClCompile Include="Input\CommandParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command\ICommand.h">
@@ -109,8 +110,6 @@
     </ClInclude>
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="App\App.h" />
-    <ClInclude Include="Input\ConsoleInput.h" />
-    <ClInclude Include="Input\IInput.h" />
     <ClInclude Include="App\GameInterface.h" />
     <ClInclude Include="Command\CommandServer.h" />
     <ClInclude Include="World\Robot\Sapper.h" />
@@ -125,5 +124,8 @@
     <ClInclude Include="Graphics\IView.h" />
     <ClInclude Include="Mode\ModeBase.h" />
     <ClInclude Include="Input\ConsoleArgs.h" />
+    <ClInclude Include="Graphics\SfmlView.h" />
+    <ClInclude Include="Input\CommandParser.h" />
+    <ClInclude Include="Input\ICommandParser.h" />
   </ItemGroup>
 </Project>

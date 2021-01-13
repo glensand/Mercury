@@ -1,6 +1,5 @@
 #include "CommandServer.h"
 #include "Command/ICommand.h"
-#include "Input/IInput.h"
 #include "App/GameInterface.h"
 #include <iostream>
 
@@ -19,11 +18,20 @@ CommandServer::~CommandServer()
         delete command;
 }
 
-void CommandServer::OnFrame()
+void CommandServer::Execute(ICommand* command)
 {
-    while(const auto command = m_gameInterface.Input->PopCommand())
+    try
     {
-        ExecuteCommand(command);
+        command->Execute(m_gameInterface);
+        m_appliedCommands.push_back(command);
+    }
+    catch (const std::exception& ex)
+    {
+        std::cerr << ex.what();
+    }
+    catch (...)
+    {
+        // just ignore
     }
 }
 
@@ -33,23 +41,6 @@ void CommandServer::UndoLast()
     lastCommand->Undo(m_gameInterface);
     delete lastCommand;
     m_appliedCommands.pop_back();
-}
-
-void CommandServer::ExecuteCommand(ICommand* command)
-{
-    try
-    {
-        command->Execute(m_gameInterface);
-        m_appliedCommands.push_back(command);
-    }
-    catch(const std::exception& ex)
-    {
-        std::cerr << ex.what();
-    }
-    catch(...)
-    {
-        // just ignore
-    }
 }
 
 }

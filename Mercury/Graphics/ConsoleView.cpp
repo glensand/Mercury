@@ -17,4 +17,10 @@ void ConsoleView::Close()
 
 }
 
+const std::string& ConsoleView::ScanConsole()
+{
+    static std::string str;
+    return str;
+}
+
 }

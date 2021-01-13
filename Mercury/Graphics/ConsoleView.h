@@ -17,6 +17,8 @@ public:
     virtual void Open() override;
 
     virtual void Close() override;
+
+    virtual const std::string& ScanConsole() override;
 };
 
 }
