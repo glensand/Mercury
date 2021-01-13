@@ -11,7 +11,7 @@ class ICommand
 {
 public:
     virtual ~ICommand() = default;
-  
+
     virtual void Execute(GameInterface& gameInterface) = 0;
 
     virtual void Undo(GameInterface& gameInterface) = 0;

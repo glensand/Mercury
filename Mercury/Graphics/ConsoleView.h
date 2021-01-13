@@ -13,6 +13,10 @@ public:
     virtual ~ConsoleView() = default;
 
     virtual void Render(const Terrain& terrain) override;
+
+    virtual void Open() override;
+
+    virtual void Close() override;
 };
 
 }

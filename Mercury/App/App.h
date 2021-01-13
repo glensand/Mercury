@@ -24,10 +24,11 @@ private:
 
     // TODO: it is better to use factory for each module
     void CreateWorld(ConsoleArgs& args);
-    void CreatePlayer(ConsoleArgs& args);
-    void CreateMode(ConsoleArgs& args);
-    void CreateView(ConsoleArgs& args);
-    void CreateInput(ConsoleArgs& args);
+    void CreatePlayer();
+    void CreateMode();
+    void CreateView();
+    void CreateInput();
+    void CreateCommandServer();
 
     GameInterface m_gameInterface;
 };

@@ -32,8 +32,9 @@ void ConsoleInput::Process()
     {
         m_command = creatorIt->second();
     }
+    else
     {
-        std::cerr << "Invalid command: " << commandType;
+        std::cout << "Invalid command: " << commandType << std::endl;
     }
 }
 

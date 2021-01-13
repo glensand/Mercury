@@ -19,10 +19,11 @@ App::~App()
 void App::Open(ConsoleArgs& args)
 {
     CreateWorld(args);
-    CreateInput(args);
-    CreatePlayer(args);
-    CreateMode(args);
-    CreateView(args);
+    CreateInput();
+    CreateCommandServer();
+    CreatePlayer();
+    CreateMode();
+    CreateView();
 }
 
 void App::Run() const
@@ -49,12 +50,12 @@ void App::CreateWorld(ConsoleArgs& args)
     m_gameInterface.World = new World(loader.Load());
 }
 
-void App::CreatePlayer(ConsoleArgs& args)
+void App::CreatePlayer()
 {
     m_gameInterface.Player = new Player(m_gameInterface);
 }
 
-void App::CreateMode(ConsoleArgs& args)
+void App::CreateMode()
 {
     m_gameInterface.Mode = new ManualMode(m_gameInterface);
 
@@ -66,14 +67,21 @@ void App::CreateMode(ConsoleArgs& args)
         });
 }
 
-void App::CreateView(ConsoleArgs& args)
+void App::CreateView()
 {
     m_gameInterface.View = new ConsoleView;
+
+    m_gameInterface.View->Open();
 }
 
-void App::CreateInput(ConsoleArgs& args)
+void App::CreateInput()
 {
     m_gameInterface.Input = new ConsoleInput;
+}
+
+void App::CreateCommandServer()
+{
+    m_gameInterface.CommandServer = new CommandServer(m_gameInterface);
 }
 
 }
