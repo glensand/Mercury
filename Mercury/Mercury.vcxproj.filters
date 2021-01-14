@@ -62,11 +62,12 @@
     <ClCompile Include="Command\Grab.cpp" />
     <ClCompile Include="Command\ChangeMode.cpp" />
     <ClCompile Include="Command\SapperSwitch.cpp" />
-    <ClCompile Include="Graphics\ConsoleView.cpp" />
     <ClCompile Include="Mode\ModeBase.cpp" />
     <ClCompile Include="Input\ConsoleArgs.cpp" />
     <ClCompile Include="Graphics\SfmlView.cpp" />
     <ClCompile Include="Input\CommandParser.cpp" />
+    <ClCompile Include="Graphics\CellView.cpp" />
+    <ClCompile Include="Graphics\TerrainView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command\ICommand.h">
@@ -120,12 +121,13 @@
     <ClInclude Include="Command\Grab.h" />
     <ClInclude Include="Command\ChangeMode.h" />
     <ClInclude Include="Command\SapperSwitch.h" />
-    <ClInclude Include="Graphics\ConsoleView.h" />
     <ClInclude Include="Graphics\IView.h" />
     <ClInclude Include="Mode\ModeBase.h" />
     <ClInclude Include="Input\ConsoleArgs.h" />
     <ClInclude Include="Graphics\SfmlView.h" />
     <ClInclude Include="Input\CommandParser.h" />
     <ClInclude Include="Input\ICommandParser.h" />
+    <ClInclude Include="Graphics\CellView.h" />
+    <ClInclude Include="Graphics\TerrainView.h" />
   </ItemGroup>
 </Project>

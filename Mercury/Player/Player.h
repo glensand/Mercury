@@ -20,6 +20,7 @@ public:
     void RemoveSapper();
 
     Collector& GetCollector();
+    const Collector& GetCollector() const;
 
     const Terrain& GetExploredTerrain() const;
 

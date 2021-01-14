@@ -15,14 +15,14 @@ void Cell::SetType(CellType type)
     m_type = type;
 }
 
-IEntity* Cell::GetEntity() const
+Robot* Cell::GetRobot() const
 {
-    return m_entityOnCell;
+    return m_robotOnCell;
 }
 
-void Cell::SetEntity(IEntity* entity)
+void Cell::SetRobot(Robot* entity)
 {
-    m_entityOnCell = entity;
+    m_robotOnCell = entity;
 }
 
 }

@@ -1,5 +1,18 @@
 #include "SfmlView.h"
 #include <SFML/Graphics.hpp>
+#include "Graphics/TerrainView.h"
+#include "App/GameInterface.h"
+#include "Player/Player.h"
+#include "World/Robot/Robot.h"
+#include "World/IWorld.h"
+
+namespace
+{
+// TODO:: move out (config)
+constexpr std::size_t TerrainPositionX{ 100 };
+constexpr std::size_t TerrainPositionY{ 10 };
+}
+
 
 namespace merc
 {
@@ -41,9 +54,13 @@ const std::string& SfmlView::ScanConsole()
     return m_consoleInput;
 }
 
-void SfmlView::Render(const Terrain& terrain)
+void SfmlView::Render(const Player& player)
 {
+    const auto [positionX, positionY] = player.GetCollector().GetPosition();
+    m_terrain->SetCenter(positionX, positionY);
+    m_terrain->Render(player.GetExploredTerrain());
 
+    m_score->setString("Score: " + std::to_string(player.GetCollector().GetScore()));
 }
 
 void SfmlView::Open()
@@ -59,7 +76,7 @@ void SfmlView::Close()
 
 void SfmlView::CreateContext()
 {
-    m_window = std::make_unique<sf::RenderWindow>(sf::VideoMode(1200, 800), "Mercury",
+    m_window = std::make_unique<sf::RenderWindow>(sf::VideoMode(1000, 900), "Mercury",
         sf::Style::Titlebar | sf::Style::Close);
 
     m_window->setVerticalSyncEnabled(true);
@@ -68,16 +85,24 @@ void SfmlView::CreateContext()
 
     // Create the instructions text
     m_consoleText = std::make_unique<sf::Text>("Console input: ", *m_font, 20);
-    m_consoleText->setPosition(80, 755);
+    m_consoleText->setPosition(80, 835);
     m_consoleText->setFillColor(sf::Color(255, 255, 255));
+
+    m_score = std::make_unique<sf::Text>("Score: 0", *m_font, 20);
+    m_score->setPosition(80, 865);
+    m_score->setFillColor(sf::Color(255, 255, 255));
+
+    m_terrain = std::make_unique<TerrainView>(TerrainPositionX, TerrainPositionY);
 }
 
 void SfmlView::Present() const
 {
-    // Clear the window
     m_window->clear(sf::Color(255, 128, 0));
 
     m_window->draw(*m_consoleText);
+    m_window->draw(*m_score);
+
+    m_window->draw(*m_terrain);
 
     m_window->display();
 }

@@ -14,6 +14,8 @@ class World final : public IWorld
 public:
     World(Terrain&& terrain);
 
+    virtual const Terrain& GetTerrain() const override;
+
     virtual Cell& GetCell(size_t x, size_t y) override;
 
     virtual size_t GetSizeX() const override;

@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "App/GameInterface.h"
+#include "World/IWorld.h"
 
 namespace merc
 {
@@ -8,6 +9,7 @@ Player::Player(GameInterface& gameInterface)
     : m_collector(*gameInterface.World, m_exploredTerrain)
     , m_gameInterface(gameInterface)
 {
+    m_exploredTerrain = m_gameInterface.World->GetTerrain();
     m_collector.InitializePosition();
 }
 
@@ -33,8 +35,14 @@ Collector& Player::GetCollector()
     return m_collector;
 }
 
+const Collector& Player::GetCollector() const
+{
+    return m_collector;
+}
+
 const Terrain& Player::GetExploredTerrain() const
 {
     return m_exploredTerrain;
 }
+
 }

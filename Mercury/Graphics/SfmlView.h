@@ -1,8 +1,6 @@
 #pragma once
 #include "IView.h"
 #include <memory>
-#include <thread>
-#include <atomic>
 
 namespace sf
 {
@@ -14,7 +12,7 @@ class Font;
 namespace merc
 {
 
-struct GameInterface;
+class TerrainView;
 
 class SfmlView final : public IView
 {
@@ -24,7 +22,7 @@ public:
 
     virtual const std::string& ScanConsole() override;
 
-    virtual void Render(const Terrain& terrain) override;
+    virtual void Render(const Player& player) override;
 
     virtual void Open() override;
 
@@ -36,7 +34,9 @@ private:
 
     std::unique_ptr<sf::RenderWindow> m_window;
     std::unique_ptr<sf::Text> m_consoleText;
+    std::unique_ptr<sf::Text> m_score;
     std::unique_ptr<sf::Font> m_font;
+    std::unique_ptr<TerrainView> m_terrain;
 
     std::string m_consoleInput;
 

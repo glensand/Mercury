@@ -17,6 +17,9 @@ public:
 
 private:
     virtual bool CanBeSetOnCell(const Cell& cell) const override;
+
+    virtual bool IsPositionAvailableImpl(size_t x, size_t y) const override;
+
     void ScanCell(size_t x, size_t y) const;
 };
 

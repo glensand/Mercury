@@ -5,6 +5,8 @@
 namespace merc
 {
 
+class Robot;
+
 enum class CellType : unsigned char
 {
     Empty,
@@ -24,11 +26,11 @@ public:
     CellType GetType() const;
     void SetType(CellType type);
 
-    IEntity* GetEntity() const;
-    void SetEntity(IEntity* entity);
+    Robot* GetRobot() const;
+    void SetRobot(Robot* entity);
 
 private:
-    IEntity* m_entityOnCell{ nullptr };
+    Robot* m_robotOnCell{ nullptr };
     CellType m_type{ CellType::Unknown };
 };
 

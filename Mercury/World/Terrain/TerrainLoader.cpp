@@ -1,4 +1,5 @@
 #include "World/Terrain/TerrainLoader.h"
+#include <fstream>
 
 namespace merc
 {
@@ -10,39 +11,42 @@ TerrainLoader::TerrainLoader(std::string fileName)
 
 TerrainLoader::TMap TerrainLoader::Load() const
 {
-    // TODO:: load terrain... use csv-like format
-    const char* str = m_fileName.c_str();
-	FILE* fin = fopen(str, "r");
-	int length, width;
-	fscanf(fin, "%d %d", &length, &width);
+	std::ifstream in(m_fileName);
+	if (!in.is_open())
+		throw std::runtime_error("File " + m_fileName + " can't be opened");
 
-	
-	TMap map(length,std::vector<Cell>(width));
+	std::size_t width;
+	std::size_t height;
 
-	char tmp;
-	fscanf(fin, "%c", &tmp);
-	for (int i = 0; i < length; ++i) {
-		for (int j = 0; j < width; ++j) {
-			char buff;
-			fscanf(fin, "%c", &buff);
-			Cell b;
-			b.SetType(CellType::Empty);
-			switch (buff) {
-			case ' ': { b.SetType(CellType::Empty); break; }
-			case '#': { b.SetType(CellType::Rock); break; }
-			case 'a': { b.SetType(CellType::Apple); break; }
-			case 'b': { b.SetType(CellType::Bomb); break; }
-			}
-			map[j][length - i - 1] = b;
-		}
-		fscanf(fin, "%c", &tmp);
+	in >> width;
+	in >> height;
+
+	if(width == 0 || height == 0)
+		throw std::runtime_error("Map size cannot be zero");
+
+	TMap map(height,std::vector<Cell>(width));
+
+	for(std::size_t i { 0 }; i < height; ++i)
+	{
+	    for(std::size_t j { 0 }; j < width; ++j)
+	    {
+			char symb{ };
+			in >> symb;
+			map[i][j].SetType(DispatchType(symb));
+	    }
 	}
 
-	fclose(fin);
-
     return map;
+}
 
-    return {};
+CellType TerrainLoader::DispatchType(char symb)
+{
+	if (symb == '*') return CellType::Empty;
+	if (symb == '#') return CellType::Rock;
+	if (symb == 'a') return CellType::Apple;
+	if (symb == 'b') return CellType::Bomb;
+
+	return CellType::Unknown;
 }
 
 }

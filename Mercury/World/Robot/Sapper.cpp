@@ -7,7 +7,7 @@ namespace merc
 {
 
 Sapper::Sapper(IWorld& world, Terrain& exploredTerrain)
-    : Robot(world, exploredTerrain)
+    : Robot(RobotType::Sapper, world, exploredTerrain)
 {
     InitializePosition();
 }
@@ -21,7 +21,7 @@ bool Sapper::CanBeSetOnCell(const Cell& cell) const
 {
 	return cell.GetType() != CellType::Unknown
         && cell.GetType() != CellType::Rock
-        && cell.GetEntity() == nullptr;
+        && cell.GetRobot() == nullptr;
 }
 
 }

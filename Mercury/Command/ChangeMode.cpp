@@ -24,7 +24,7 @@ void ChangeMode::Execute(GameInterface& gameInterface)
     gameInterface.Mode = CreateByType(gameInterface);
     gameInterface.Mode->SetOnStepCallback([&]
         {
-            gameInterface.View->Render(gameInterface.Player->GetExploredTerrain());
+            gameInterface.View->Render(gameInterface);
         });
 }
 

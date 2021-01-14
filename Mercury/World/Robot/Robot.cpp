@@ -8,11 +8,12 @@ namespace merc
 
 Robot::~Robot()
 {
-    m_world.GetCell(m_x, m_y).SetEntity(nullptr);
+    m_exploredTerrain.GetCell(m_x, m_y).SetRobot(nullptr);
 }
 
-Robot::Robot(IWorld& world, Terrain& terrain)
-    : m_world(world)
+Robot::Robot(RobotType type, IWorld& world, Terrain& terrain)
+    : m_type(type)
+    , m_world(world)
     , m_exploredTerrain(terrain)
 {
 
@@ -28,8 +29,8 @@ void Robot::Move(size_t x, size_t y)
 {
     if (IsPositionAvailable(x, y))
     {
-        m_world.GetCell(m_x, m_y).SetEntity(nullptr);
-        m_world.GetCell(x, y).SetEntity(this);
+        m_exploredTerrain.GetCell(m_x, m_y).SetRobot(nullptr);
+        m_exploredTerrain.GetCell(x, y).SetRobot(this);
 
         m_x = x;
         m_y = y;
@@ -38,7 +39,7 @@ void Robot::Move(size_t x, size_t y)
 
 void Robot::ClearCell(CellType desiredCell)
 {
-    auto&& cell = m_world.GetCell(m_x, m_y);
+    auto&& cell = m_exploredTerrain.GetCell(m_x, m_y);
 
     if (cell.GetType() == desiredCell)
     {
@@ -47,27 +48,46 @@ void Robot::ClearCell(CellType desiredCell)
     }
 }
 
+std::pair<std::size_t, std::size_t> Robot::GetPosition() const
+{
+    return { m_x, m_y };
+}
+
 size_t Robot::GetScore() const
 {
     return m_score;
+}
+
+RobotType Robot::GetType() const
+{
+    return m_type;
 }
 
 void Robot::InitializePosition()
 {
     while (true)
     {
-        m_x = rand() % m_world.GetSizeX();
-        m_y = rand() % m_world.GetSizeY();
-        const auto& cell = m_exploredTerrain.GetCell(m_x, m_y);
+        m_x = rand() % m_exploredTerrain.GetSizeX();
+        m_y = rand() % m_exploredTerrain.GetSizeY();
+        auto&& cell = m_exploredTerrain.GetCell(m_x, m_y);
         if (CanBeSetOnCell(cell))
+        {
+            cell.SetRobot(this);
             break;
+        }
     }
 }
 
 bool Robot::IsPositionAvailable(size_t x, size_t y) const
 {
     const auto& cell = m_world.GetCell(x, y);
-    return cell.GetType() != CellType::Rock || cell.GetEntity() == nullptr;
+    return cell.GetType() != CellType::Rock && cell.GetRobot() == nullptr
+        && IsPositionAvailableImpl(x, y);
+}
+
+bool Robot::IsPositionAvailableImpl(size_t x, size_t y) const
+{
+    return true;
 }
 
 std::pair<size_t, size_t> Robot::ComputeDesiredPosition(Direction dir) const
@@ -79,9 +99,9 @@ std::pair<size_t, size_t> Robot::ComputeDesiredPosition(Direction dir) const
     else if (dir == Direction::Right)
         ++x;
     else if (dir == Direction::Up)
-        ++y;
+        --y; // TODO:: what the fuck with coordinates??
     else if (dir == Direction::Down)
-        --y;
+        ++y;
     return { x , y };
 }
 

@@ -12,7 +12,7 @@ Collector::~Collector()
 }
 
 Collector::Collector(IWorld& world, Terrain& terrain)
-    : Robot(world, terrain)
+    : Robot(RobotType::Collector, world, terrain)
 {
 
 }
@@ -34,7 +34,12 @@ bool Collector::CanBeSetOnCell(const Cell& cell) const
 {
     return cell.GetType() != CellType::Rock
         && cell.GetType() != CellType::Bomb
-        && cell.GetEntity() == nullptr;
+        && cell.GetRobot() == nullptr;
+}
+
+bool Collector::IsPositionAvailableImpl(size_t x, size_t y) const
+{
+    return m_exploredTerrain.GetCell(x, y).GetType() != CellType::Bomb;
 }
 
 void Collector::ScanCell(size_t x, size_t y) const

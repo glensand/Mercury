@@ -4,7 +4,7 @@
 namespace merc
 {
 
-class Terrain;
+struct Player;
 
 class IView
 {
@@ -14,7 +14,7 @@ public:
 
     virtual const std::string& ScanConsole() = 0;
 
-    virtual void Render(const Terrain& terrain) = 0;
+    virtual void Render(const Player& player) = 0;
 
     virtual void Open() = 0;
 

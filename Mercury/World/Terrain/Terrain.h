@@ -17,7 +17,12 @@ public:
 
     void Resize(size_t x, size_t y);
 
+    std::size_t GetSizeX() const;
+    std::size_t GetSizeY() const;
+
     Cell& GetCell(size_t x, size_t y);
+    const Cell& GetCell(size_t x, size_t y) const;
+
     const TMap& GetMap() const;
 private:
     TMap m_map;

@@ -11,6 +11,14 @@ class Cell;
 class IWorld;
 class Terrain;
 
+enum class RobotType : unsigned char
+{
+    Collector,
+    Sapper,
+
+    Count,
+};
+
 enum class Direction : unsigned char
 {
     Left,
@@ -31,7 +39,7 @@ class Robot : public IEntity
 {
 public:
     virtual ~Robot();
-    Robot(IWorld& world, Terrain& terrain);
+    Robot(RobotType type, IWorld& world, Terrain& terrain);
 
     void InitializePosition();
 
@@ -40,14 +48,22 @@ public:
 
     void ClearCell(CellType desiredCell);
 
+    std::pair<std::size_t, std::size_t> GetPosition() const;
+
     size_t GetScore() const;
+
+    RobotType GetType() const;
 
 protected:
     virtual bool CanBeSetOnCell(const Cell& cell) const = 0;
 
     bool IsPositionAvailable(size_t x, size_t y) const;
+
+    virtual bool IsPositionAvailableImpl(size_t x, size_t y) const;
+
     std::pair<size_t, size_t> ComputeDesiredPosition(Direction dir) const;
 
+    RobotType m_type;
     IWorld& m_world;
     Terrain& m_exploredTerrain;
     State m_state{ State::Normal };

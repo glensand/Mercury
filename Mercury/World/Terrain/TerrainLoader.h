@@ -18,6 +18,9 @@ public:
     TMap Load() const;
 
 private:
+
+    static CellType DispatchType(char symb);
+
     std::string m_fileName;
 };
 

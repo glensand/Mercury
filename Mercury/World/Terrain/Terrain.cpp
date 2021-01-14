@@ -17,17 +17,31 @@ Terrain::Terrain()
 
 void Terrain::Resize(size_t x, size_t y)
 {
-    m_map.clear();
-    m_map.resize(x);
-    for (auto&& r : m_map)
-        r = std::vector<Cell>(y);
+    m_map = TMap(y, std::vector<Cell>(x));
+}
+
+std::size_t Terrain::GetSizeX() const
+{
+    return m_map.size();
+}
+
+std::size_t Terrain::GetSizeY() const
+{
+    return !m_map.empty() ? m_map[0].size() : 0;
 }
 
 Cell& Terrain::GetCell(size_t x, size_t y)
 {
     if (x >= m_map.size() || y >= m_map[x].size())
         throw std::runtime_error("Terrain::GetCell invalid point"); // TODO:: implement own exception classes
-    return m_map[x][y];
+    return m_map[y][x];
+}
+
+const Cell& Terrain::GetCell(size_t x, size_t y) const
+{
+    if (x >= m_map.size() || y >= m_map[x].size())
+        throw std::runtime_error("Terrain::GetCell invalid point"); // TODO:: implement own exception classes
+    return m_map[y][x];
 }
 
 const Terrain::TMap& Terrain::GetMap() const

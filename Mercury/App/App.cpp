@@ -45,7 +45,7 @@ void App::Run() const
 
 void App::Render() const
 {
-    m_gameInterface.View->Render(m_gameInterface.Player->GetExploredTerrain());
+    m_gameInterface.View->Render(*m_gameInterface.Player);
 }
 
 void App::OnFirstFrame() const

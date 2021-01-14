@@ -7,6 +7,7 @@ class IEntity
 {
 public:
     virtual ~IEntity() = default;
+
 };
 
 }
