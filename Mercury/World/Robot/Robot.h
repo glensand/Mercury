@@ -42,6 +42,7 @@ public:
 protected:
 
     bool IsPositionAvailable(size_t x, size_t y);
+    bool IsRobotOnBorder(size_t x, size_t y);
 
     IWorld& m_world;
     Terrain& m_exploredTerrain;
