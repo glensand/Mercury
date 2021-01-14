@@ -25,9 +25,10 @@ void Collector::Collect()
 void Collector::Scan() const
 {
     ScanCell(m_x - 1, m_y);
-    ScanCell(m_x, m_y + 1);
     ScanCell(m_x + 1, m_y);
-    ScanCell(m_x , m_y + 1);
+
+    ScanCell(m_x, m_y + 1);
+    ScanCell(m_x, m_y - 1);
 }
 
 bool Collector::CanBeSetOnCell(const Cell& cell) const

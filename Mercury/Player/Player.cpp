@@ -9,7 +9,7 @@ Player::Player(GameInterface& gameInterface)
     : m_collector(*gameInterface.World, m_exploredTerrain)
     , m_gameInterface(gameInterface)
 {
-    m_exploredTerrain = m_gameInterface.World->GetTerrain();
+    m_exploredTerrain.Resize(m_gameInterface.World->GetSizeX(), m_gameInterface.World->GetSizeY());
     m_collector.InitializePosition();
 }
 

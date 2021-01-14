@@ -67,12 +67,13 @@ void Robot::InitializePosition()
 {
     while (true)
     {
-        m_x = rand() % m_exploredTerrain.GetSizeX();
-        m_y = rand() % m_exploredTerrain.GetSizeY();
-        auto&& cell = m_exploredTerrain.GetCell(m_x, m_y);
+        const auto x = rand() % m_world.GetSizeX();
+        const auto y = rand() % m_world.GetSizeY();
+        auto&& cell = m_world.GetCell(x, y);
         if (CanBeSetOnCell(cell))
         {
-            cell.SetRobot(this);
+            Move(x, y);
+            m_exploredTerrain.GetCell(x, y).SetType(cell.GetType());
             break;
         }
     }
