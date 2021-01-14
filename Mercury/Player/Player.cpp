@@ -8,7 +8,7 @@ Player::Player(GameInterface& gameInterface)
     : m_collector(*gameInterface.World, m_exploredTerrain)
     , m_gameInterface(gameInterface)
 {
-
+    m_collector.InitializePosition();
 }
 
 Sapper* Player::GetSapper() const
@@ -20,7 +20,7 @@ void Player::AddSapper()
 {
     m_sapper = std::make_unique<Sapper>(*m_gameInterface.World, m_exploredTerrain);
 
-    // TODO: random cell and add
+    m_sapper->InitializePosition();
 }
 
 void Player::RemoveSapper()

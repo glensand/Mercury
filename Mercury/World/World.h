@@ -16,8 +16,8 @@ public:
 
     virtual Cell& GetCell(size_t x, size_t y) override;
 
-    std::size_t GetSizeX() const;
-    std::size_t GetSizeY() const;
+    virtual size_t GetSizeX() const override;
+    virtual size_t GetSizeY() const override;
 
 private:
     Terrain m_staticTerrain;

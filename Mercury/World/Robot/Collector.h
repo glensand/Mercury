@@ -8,15 +8,16 @@ namespace merc
 class Collector final : public Robot
 {
 public:
-    virtual ~Collector() = default;
+    virtual ~Collector();
     Collector(IWorld& world, Terrain& terrain);
 
     void Collect();
 
-    void Scan();
+    void Scan() const;
 
 private:
-    size_t m_score{ 0 };
+    virtual bool CanBeSetOnCell(const Cell& cell) const override;
+    void ScanCell(size_t x, size_t y) const;
 };
 
 }

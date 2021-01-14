@@ -1,55 +1,39 @@
 #include "Robot.h"
 #include "World/Terrain/Cell.h"
+#include "World/Terrain/Terrain.h"
 #include "World/IWorld.h"
 
 namespace merc
 {
 
+Robot::~Robot()
+{
+    m_world.GetCell(m_x, m_y).SetEntity(nullptr);
+}
+
 Robot::Robot(IWorld& world, Terrain& terrain)
     : m_world(world)
     , m_exploredTerrain(terrain)
 {
+
 }
 
 void Robot::Move(Direction direction)
 {
-    switch (direction) {
-    case Direction::Right: {
-       if( !IsPositionAvailable(m_x + 1, m_y)) return;
-        ++m_x;	
-        break;	
-    }
-    case Direction::Left: {	
-        if (!IsPositionAvailable(m_x - 1, m_y)) return;
-        --m_x;
-        break; }
-    case Direction::Down: {
-        if (!IsPositionAvailable(m_x, m_y - 1)) return;
-        --m_y;	
-        break;	}
-    case up: {
-        if (!IsPositionAvailable(m_x, m_y + 1)) return;
-        ++m_y;	
-        break;	}
-    default: { return; }
-    }
-
-    if (IsRobotOnBorder(m_x, m_y)) {
-        if ((m_world.GetSizeX >= x + 1) || (m_world.GetSizeX >= y + 1))
-            m_exploredTerrain.Resize(x + 1, y + 1);
-    }
-
-    return;
-
+    const auto& [x, y] = ComputeDesiredPosition(direction);
+    Move(x, y);
 }
 
 void Robot::Move(size_t x, size_t y)
 {
+    if (IsPositionAvailable(x, y))
+    {
+        m_world.GetCell(m_x, m_y).SetEntity(nullptr);
+        m_world.GetCell(x, y).SetEntity(this);
 
-    // TODO implement motion
-
-    m_x = x;
-    m_y = y;
+        m_x = x;
+        m_y = y;
+    }
 }
 
 void Robot::ClearCell(CellType desiredCell)
@@ -68,22 +52,37 @@ size_t Robot::GetScore() const
     return m_score;
 }
 
-bool Robot::IsPositionAvailable(size_t x, size_t y)
+void Robot::InitializePosition()
 {
-       Cell c = (m_exploredTerrain.GetCell(x, y)).GetType;
-    if (c == CellType::Bomb || c == CellType::Rock ) return false;
-    return true;
+    while (true)
+    {
+        m_x = rand() % m_world.GetSizeX();
+        m_y = rand() % m_world.GetSizeY();
+        const auto& cell = m_exploredTerrain.GetCell(m_x, m_y);
+        if (CanBeSetOnCell(cell))
+            break;
+    }
 }
-    
-    bool Robot::IsRobotOnBorder(size_t x, size_t y)
+
+bool Robot::IsPositionAvailable(size_t x, size_t y) const
 {
-    if ((x  == ( (m_exploredTerrain.GetMap()).size() - 1)) || (x == 0)) {
-        return true;
-    }
-    if ((y  == ( (m_exploredTerrain.GetMap())[0].size() - 1)) || (y  == 0)) {
-        return true;
-    }
-    return false;
+    const auto& cell = m_world.GetCell(x, y);
+    return cell.GetType() != CellType::Rock || cell.GetEntity() == nullptr;
+}
+
+std::pair<size_t, size_t> Robot::ComputeDesiredPosition(Direction dir) const
+{
+    auto x = m_x;
+    auto y = m_y;
+    if (dir == Direction::Left)
+        --x;
+    else if (dir == Direction::Right)
+        ++x;
+    else if (dir == Direction::Up)
+        ++y;
+    else if (dir == Direction::Down)
+        --y;
+    return { x , y };
 }
 
 }
