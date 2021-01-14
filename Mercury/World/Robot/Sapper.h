@@ -14,6 +14,7 @@ public:
     Sapper(IWorld& world, Terrain& exploredTerrain);
 
     void Delouse();
+    size_t coll_x{ 0 }, coll_y{0};
 };
 
 }
