@@ -25,17 +25,13 @@ public:
 
     using TDirectionMap = std::unordered_map<Direction, std::function<Point(const Point& p)>>;
 
-    AutoMode(GameInterface& gameInterface, Mode modeType, std::size_t iterations);
+    AutoMode(GameInterface& gameInterface, Mode modeType);
 
     virtual ~AutoMode() = default;
-
-    virtual void OnFrame() override final;
 
 protected:
 
     std::deque<Direction> FindPath(const Robot& robot, CellType desiredCell) const;
-
-    virtual bool Step() = 0;
 
 private:
 
@@ -47,7 +43,6 @@ private:
     std::deque<Direction> FindPath(CellType desiredCell, const Point& cur) const;
 
     mutable TDirectionMap m_directions;
-    std::size_t m_iterations{ 0 };
 };
 
 }

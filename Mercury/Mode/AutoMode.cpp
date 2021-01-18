@@ -3,8 +3,6 @@
 #include "World/Robot/Robot.h"
 #include "World/Terrain/Terrain.h"
 #include "Player/Player.h"
-#include <chrono>
-#include <thread>
 
 namespace
 {
@@ -15,33 +13,13 @@ constexpr auto FrameTime{ 1000 * 1.0 / double(MovesPerSecond) };
 namespace merc
 {
 
-AutoMode::AutoMode(GameInterface& gameInterface, Mode modeType, std::size_t iterations)
+AutoMode::AutoMode(GameInterface& gameInterface, Mode modeType)
     : ModeBase(gameInterface, modeType)
-    , m_iterations(iterations)
 {
     m_directions[Direction::Up] = [](const Point& p) { return Up(p); };
     m_directions[Direction::Down] = [](const Point& p) { return Down(p); };
     m_directions[Direction::Left] = [](const Point& p) { return Left(p); };
     m_directions[Direction::Right] = [](const Point& p) { return Right(p); };
-}
-
-void AutoMode::OnFrame()
-{
-    for(std::size_t i{ 0 }; i < m_iterations; ++i)
-    {
-        const auto begin = std::chrono::steady_clock::now();
-        if (Step())
-        {
-            Render();
-        }
-        else
-        {
-            break; // no available motions
-        }
-        const auto end = std::chrono::steady_clock::now();
-        const auto curFrameTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-        std::this_thread::sleep_for(curFrameTime);
-    }
 }
 
 AutoMode::Point AutoMode::Up(const Point& p)

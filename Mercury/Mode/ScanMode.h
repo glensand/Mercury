@@ -13,9 +13,11 @@ public:
 
     virtual ~ScanMode() = default;
 
+    virtual void OnFrame() override;
+
 private:
 
-    virtual bool Step() override;
+    bool Step() const;
 
     std::size_t m_iterations{ 0 };
 };

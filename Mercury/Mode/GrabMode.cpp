@@ -1,22 +1,37 @@
 #include "GrabMode.h"
-#include "World/Terrain/Cell.h"
-#include "World/Robot/Robot.h"
 #include "App/GameInterface.h"
+#include "World/Robot/Robot.h"
+#include "World/Terrain/Terrain.h"
+#include "Player/Player.h"
 
 namespace merc
 {
 
 GrabMode::GrabMode(GameInterface& gameInterface)
-	: ModeBase(gameInterface, Mode::Grab)
+	: AutoMode(gameInterface, Mode::Grab)
 {
 
 }
 
 void GrabMode::OnFrame()
 {
-	// TODO:: simulate
+    while(Step())
+    {
+        Render();
+    }
+}
 
-	Render();
+bool GrabMode::Step()
+{
+    auto&& collector = m_gameInterface.Player->GetCollector();
+    auto path = FindPath(collector, CellType::Apple);
+    if (path.empty())
+        return false;
+
+    for (auto&& direction : path)
+        collector.Move(direction);
+    collector.Collect();
+    return true;
 }
 
 }
