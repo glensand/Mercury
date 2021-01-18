@@ -161,6 +161,7 @@
     <ClCompile Include="Input\ConsoleArgs.cpp" />
     <ClCompile Include="Input\CommandParser.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mode\AutoMode.cpp" />
     <ClCompile Include="Mode\GrabMode.cpp" />
     <ClCompile Include="Mode\ManualMode.cpp" />
     <ClCompile Include="Mode\ModeBase.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Input\ConsoleArgs.h" />
     <ClInclude Include="Input\CommandParser.h" />
     <ClInclude Include="Input\ICommandParser.h" />
+    <ClInclude Include="Mode\AutoMode.h" />
     <ClInclude Include="Mode\GrabMode.h" />
     <ClInclude Include="Mode\IMode.h" />
     <ClInclude Include="Mode\ManualMode.h" />

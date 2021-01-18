@@ -73,6 +73,7 @@ ICommand* CommandParser::ParseMode(std::istream& stream)
     }
     else if(modeStr == "scan")
     {
+        mode = Mode::Scan;
         int n;
         stream >> n;
         argument = n;

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "ModeBase.h"
+#include "Mode/AutoMode.h"
 
 namespace merc
 {
 
-class ScanMode final : public ModeBase
+class ScanMode final : public AutoMode
 {
 public:
 
@@ -13,13 +13,9 @@ public:
 
     virtual ~ScanMode() = default;
 
-    virtual void OnFrame() override;
-
 private:
 
-    bool CanStep() const;
-
-    void Step();
+    virtual bool Step() override;
 
     std::size_t m_iterations{ 0 };
 };

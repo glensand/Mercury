@@ -1,33 +1,31 @@
 #include "ScanMode.h"
+#include "App/GameInterface.h"
+#include "World/Robot/Robot.h"
+#include "World/Terrain/Terrain.h"
+#include "Player/Player.h"
 
 namespace merc
 {
 
 ScanMode::ScanMode(GameInterface& gameInterface, std::size_t iterations)
-    : ModeBase(gameInterface, Mode::Scan)
+    : AutoMode(gameInterface, Mode::Scan, iterations)
     , m_iterations(iterations)
 {
 
 }
 
-void ScanMode::OnFrame()
+bool ScanMode::Step()
 {
-    for(std::size_t i{ 0 }; i < m_iterations && CanStep(); ++i)
-    {
-        Step();
+    auto&& collector = m_gameInterface.Player->GetCollector();
+    auto path = FindPath(collector, CellType::Unknown);
+    if (path.empty())
+        return false;
 
-        Render();
-    }
-}
-
-bool ScanMode::CanStep() const
-{
+    path.pop_back();
+    for(auto&& direction : path)
+        collector.Move(direction);
+    collector.Scan();
     return true;
-}
-
-void ScanMode::Step()
-{
-
 }
 
 }

@@ -13,7 +13,7 @@ struct GameInterface;
 class Player final
 {
 public:
-    Player(GameInterface& gameInterface);
+    explicit Player(GameInterface& gameInterface);
 
     Sapper* GetSapper() const;
     void AddSapper();

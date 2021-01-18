@@ -12,7 +12,7 @@ class Cell;
 class World final : public IWorld
 {
 public:
-    World(Terrain&& terrain);
+    explicit World(Terrain&& terrain);
 
     virtual const Terrain& GetTerrain() const override;
 
