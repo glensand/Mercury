@@ -1,6 +1,8 @@
 #pragma once
+
 #include "IView.h"
 #include <memory>
+#include <chrono>
 
 namespace sf
 {
@@ -48,6 +50,8 @@ private:
 
         Count,
     };
+
+    std::chrono::steady_clock::time_point m_lastPresent;
 };
 
 }

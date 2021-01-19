@@ -6,6 +6,14 @@
 #include "World/Robot/Robot.h"
 #include "World/IWorld.h"
 
+#include <thread>
+
+namespace
+{
+constexpr std::size_t MovesPerSecond{ 3 };
+constexpr std::size_t FrameTime{ 1000  / MovesPerSecond };
+}
+
 namespace
 {
 // TODO:: move out (config)
@@ -19,7 +27,7 @@ namespace merc
 
 SfmlView::SfmlView()
 {
-    
+    m_lastPresent = std::chrono::steady_clock::now();
 }
 
 SfmlView::~SfmlView()
@@ -105,6 +113,15 @@ void SfmlView::Present()
     m_window->draw(*m_terrain);
 
     m_window->display();
+
+    const auto now = std::chrono::steady_clock::now();
+    const auto frameTime = std::chrono::duration_cast<std::chrono::milliseconds>(now - m_lastPresent);
+    if (frameTime.count() < FrameTime)
+    {
+        const auto sleepTime = FrameTime - frameTime.count();
+        std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
+    }
+    m_lastPresent = now;
 }
 
 }

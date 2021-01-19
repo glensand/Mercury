@@ -7,12 +7,6 @@
 #include <algorithm>
 #include <vector>
 
-namespace
-{
-constexpr std::size_t MovesPerSecond{ 3 };
-constexpr auto FrameTime{ 1000 * 1.0 / double(MovesPerSecond) };
-}
-
 namespace merc
 {
 
