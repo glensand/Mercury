@@ -34,8 +34,9 @@ void TerrainView::Render(const Terrain& terrain)
     const auto lastCellX = std::min(terrain.GetSizeX(), m_centerX + CellCountX / 2);
     const auto lastCellY = std::min(terrain.GetSizeY(), m_centerY + CellCountY / 2);
 
-    auto cellX = lastCellX - CellCountX;
-    auto cellY = lastCellY - CellCountY;
+    const auto initialiX = CellCountX > lastCellX ? 0 : lastCellX - CellCountX;
+    auto cellX = initialiX;
+    auto cellY = CellCountY > lastCellY ? 0 : lastCellY - CellCountY;
 
     auto&& cellRobot = terrain.GetCell(m_centerX, m_centerY);
 
@@ -48,7 +49,7 @@ void TerrainView::Render(const Terrain& terrain)
             ++cellX;
         }
         ++cellY;
-        cellX = lastCellX - CellCountX;
+        cellX = initialiX;
     }
 }
 

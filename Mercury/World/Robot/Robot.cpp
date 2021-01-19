@@ -81,6 +81,8 @@ void Robot::InitializePosition()
 
 bool Robot::IsPositionAvailable(size_t x, size_t y) const
 {
+    if (!m_world.GetTerrain().IsCellOnBoard(x, y))
+        return false;
     const auto& cell = m_world.GetCell(x, y);
     return cell.GetType() != CellType::Rock && cell.GetRobot() == nullptr
         && IsPositionAvailableImpl(x, y);
@@ -96,11 +98,11 @@ std::pair<size_t, size_t> Robot::ComputeDesiredPosition(Direction dir) const
     auto x = m_x;
     auto y = m_y;
     if (dir == Direction::Left)
-        --x;
+        x = x > 0 ? x - 1 : 0;
     else if (dir == Direction::Right)
         ++x;
     else if (dir == Direction::Up)
-        --y; // TODO:: what the fuck with coordinates??
+        y = y > 0 ? y - 1 : 0;
     else if (dir == Direction::Down)
         ++y;
     return { x , y };

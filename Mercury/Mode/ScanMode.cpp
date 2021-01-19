@@ -38,8 +38,12 @@ bool ScanMode::Step() const
         return false;
 
     path.pop_back();
-    for(auto&& direction : path)
+    for (auto&& direction : path)
+    {
         collector.Move(direction);
+        Render();
+    }
+
     collector.Scan();
     return true;
 }
