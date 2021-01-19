@@ -24,7 +24,8 @@ void GrabMode::OnFrame()
 bool GrabMode::Step()
 {
     auto&& collector = m_gameInterface.Player->GetCollector();
-    auto path = FindPath(collector, CellType::Apple);
+    const std::vector<CellType> forbiddenCells = { CellType::Bomb, CellType::Rock, CellType::Unknown };
+    auto path = FindPath(collector, CellType::Apple, forbiddenCells);
     if (path.empty())
         return false;
 

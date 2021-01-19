@@ -24,13 +24,14 @@ public:
 
     virtual void Render(const Player& player) override;
 
+    virtual void Present() override;
+
     virtual void Open() override;
 
     virtual void Close() override;
 private:
 
     void CreateContext();
-    void Present() const;
 
     std::unique_ptr<sf::RenderWindow> m_window;
     std::unique_ptr<sf::Text> m_consoleText;

@@ -16,6 +16,8 @@ public:
 
     virtual void Render(const Player& player) = 0;
 
+    virtual void Present() = 0;
+
     virtual void Open() = 0;
 
     virtual void Close() = 0;

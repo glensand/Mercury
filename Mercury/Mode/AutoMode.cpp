@@ -4,6 +4,9 @@
 #include "World/Terrain/Terrain.h"
 #include "Player/Player.h"
 
+#include <algorithm>
+#include <vector>
+
 namespace
 {
 constexpr std::size_t MovesPerSecond{ 3 };
@@ -42,14 +45,15 @@ AutoMode::Point AutoMode::Left(const Point& p)
     return { p.X - 1, p.Y, &p };
 }
 
-std::deque<Direction> AutoMode::FindPath(CellType desiredCell, const Point& initial) const
+std::deque<Direction> AutoMode::FindPath(CellType desiredCell, const Point& initial, const std::vector<CellType>& forbiddenCells) const
 {
     std::deque<Direction> directions;
     auto&& terrain = m_gameInterface.Player->GetExploredTerrain();
     for(std::size_t i{ 0 }; i < std::size_t(Direction::Count); ++i)
     {
         const auto nextPoint = m_directions[Direction(i)](initial);
-        if (initial.Prev != nullptr && nextPoint.X == initial.Prev->X && nextPoint.Y == initial.Prev->Y)
+        if (initial.Prev != nullptr && nextPoint.X == initial.Prev->X && nextPoint.Y == initial.Prev->Y
+            || !terrain.IsCellOnBoard(nextPoint.X, nextPoint.Y))
             continue; // step out do not allowed
 
         auto&& cell = terrain.GetCell(nextPoint.X, nextPoint.Y);
@@ -59,9 +63,9 @@ std::deque<Direction> AutoMode::FindPath(CellType desiredCell, const Point& init
             break;
         }
 
-        if(cell.GetType() != CellType::Bomb && cell.GetType() != CellType::Rock)
+        if(std::find(std::cbegin(forbiddenCells), std::cend(forbiddenCells), cell.GetType()) == std::cend(forbiddenCells))
         {
-            auto&& newDirections = FindPath(desiredCell, nextPoint);
+            auto&& newDirections = FindPath(desiredCell, nextPoint, forbiddenCells);
             if(!newDirections.empty()) // found path to the desired cell
             {
                 directions.emplace_back(Direction(i));
@@ -75,11 +79,11 @@ std::deque<Direction> AutoMode::FindPath(CellType desiredCell, const Point& init
     return directions;
 }
 
-std::deque<Direction> AutoMode::FindPath(const Robot& robot, CellType desiredCell) const
+std::deque<Direction> AutoMode::FindPath(const Robot& robot, CellType desiredCell, const std::vector<CellType>& forbiddenCells) const
 {
     const auto [x, y] = robot.GetPosition();
     const auto initialPoint = Point{ x, y };
-    return FindPath(desiredCell, initialPoint);
+    return FindPath(desiredCell, initialPoint, forbiddenCells);
 }
 
 }

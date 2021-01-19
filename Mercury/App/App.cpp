@@ -91,6 +91,7 @@ void App::CreateMode()
     m_gameInterface.Mode->SetOnStepCallback([&]
         {
             Render();
+            m_gameInterface.View->Present();
         });
 }
 

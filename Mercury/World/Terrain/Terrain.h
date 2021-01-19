@@ -20,6 +20,8 @@ public:
     std::size_t GetSizeX() const;
     std::size_t GetSizeY() const;
 
+    bool IsCellOnBoard(size_t x, size_t y) const;
+
     Cell& GetCell(size_t x, size_t y);
     const Cell& GetCell(size_t x, size_t y) const;
 

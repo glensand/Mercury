@@ -25,6 +25,7 @@ void ChangeMode::Execute(GameInterface& gameInterface)
     gameInterface.Mode->SetOnStepCallback([&]
         {
             gameInterface.View->Render(*gameInterface.Player);
+            gameInterface.View->Present();
         });
 }
 

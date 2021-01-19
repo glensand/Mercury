@@ -95,7 +95,7 @@ void SfmlView::CreateContext()
     m_terrain = std::make_unique<TerrainView>(TerrainPositionX, TerrainPositionY);
 }
 
-void SfmlView::Present() const
+void SfmlView::Present()
 {
     m_window->clear(sf::Color(255, 128, 0));
 

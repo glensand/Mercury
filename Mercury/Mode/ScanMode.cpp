@@ -37,7 +37,8 @@ void ScanMode::OnFrame()
 bool ScanMode::Step() const
 {
     auto&& collector = m_gameInterface.Player->GetCollector();
-    auto path = FindPath(collector, CellType::Unknown);
+    const std::vector<CellType> forbiddenCells = { CellType::Bomb, CellType::Rock };
+    auto path = FindPath(collector, CellType::Unknown, forbiddenCells);
     if (path.empty())
         return false;
 

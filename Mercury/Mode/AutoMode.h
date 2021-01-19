@@ -31,7 +31,7 @@ public:
 
 protected:
 
-    std::deque<Direction> FindPath(const Robot& robot, CellType desiredCell) const;
+    std::deque<Direction> FindPath(const Robot& robot, CellType desiredCell, const std::vector<CellType>& forbiddenCells) const;
 
 private:
 
@@ -40,7 +40,7 @@ private:
     static Point Right(const Point& p);
     static Point Left(const Point& p);
 
-    std::deque<Direction> FindPath(CellType desiredCell, const Point& cur) const;
+    std::deque<Direction> FindPath(CellType desiredCell, const Point& cur, const std::vector<CellType>& forbiddenCells) const;
 
     mutable TDirectionMap m_directions;
 };

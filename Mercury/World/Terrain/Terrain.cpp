@@ -30,6 +30,12 @@ std::size_t Terrain::GetSizeY() const
     return !m_map.empty() ? m_map[0].size() : 0;
 }
 
+bool Terrain::IsCellOnBoard(size_t x, size_t y) const
+{
+    return x < m_map.size() && y < m_map[0].size();
+}
+
+
 Cell& Terrain::GetCell(size_t x, size_t y)
 {
     if (x >= m_map.size() || y >= m_map[x].size())
