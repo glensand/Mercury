@@ -30,7 +30,11 @@ bool GrabMode::Step()
         return false;
 
     for (auto&& direction : path)
+    {
         collector.Move(direction);
+        Render();
+    }
+
     collector.Collect();
     return true;
 }

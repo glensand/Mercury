@@ -39,45 +39,66 @@ AutoMode::Point AutoMode::Left(const Point& p)
     return { p.X - 1, p.Y, &p };
 }
 
-std::deque<Direction> AutoMode::FindPath(CellType desiredCell, const Point& initial, const std::vector<CellType>& forbiddenCells) const
+bool AutoMode::ExploreMap(std::deque<Point>& points, CellType desiredCell, const std::vector<CellType>& forbiddenCells) const
 {
-    std::deque<Direction> directions;
+    const auto& cur = points.back();
     auto&& terrain = m_gameInterface.Player->GetExploredTerrain();
-    for(std::size_t i{ 0 }; i < std::size_t(Direction::Count); ++i)
+    for (std::size_t i{ 0 }; i < std::size_t(Direction::Count); ++i)
     {
-        const auto nextPoint = m_directions[Direction(i)](initial);
-        if (initial.Prev != nullptr && nextPoint.X == initial.Prev->X && nextPoint.Y == initial.Prev->Y
-            || !terrain.IsCellOnBoard(nextPoint.X, nextPoint.Y))
-            continue; // step out do not allowed
-
-        auto&& cell = terrain.GetCell(nextPoint.X, nextPoint.Y);
+        const auto point = m_directions[Direction(i)](cur);
+        if (!terrain.IsCellOnBoard(point.X, point.Y) || std::find(std::cbegin(points), std::cend(points), point) != std::cend(points))
+            continue;
+        auto&& cell = terrain.GetCell(point.X, point.Y);
         if(cell.GetType() == desiredCell)
         {
-            directions.emplace_back(Direction(i)); // found whole path to the desired cell
-            break;
+            points.emplace_back(point);
+            return true;
         }
-
         if(std::find(std::cbegin(forbiddenCells), std::cend(forbiddenCells), cell.GetType()) == std::cend(forbiddenCells))
         {
-            auto&& newDirections = FindPath(desiredCell, nextPoint, forbiddenCells);
-            if(!newDirections.empty()) // found path to the desired cell
-            {
-                directions.emplace_back(Direction(i));
-                for (const auto direction : newDirections) // just insert part of the whole path
-                    directions.emplace_back(direction);
-                break;
-            }
+            points.emplace_back(point);
+            if (ExploreMap(points, desiredCell, forbiddenCells))
+                return true;
         }
     }
 
-    return directions;
+    return false;
+}
+
+std::deque<Direction> AutoMode::Convert(const std::deque<Point>& points) const
+{
+    std::deque<Direction> result;
+    auto* point = &points.back();
+    while(point->Prev != nullptr)
+    {
+        result.push_front(ComputeDirection(*point->Prev, *point));
+        point = point->Prev;
+    }
+    return result;
+}
+
+Direction AutoMode::ComputeDirection(const Point& from, const Point& to) const
+{
+    for (std::size_t i{ 0 }; i < std::size_t(Direction::Count); ++i)
+    {
+        if (m_directions[Direction(i)](from) == to)
+            return Direction(i);
+    }
+
+    return Direction::Count;
 }
 
 std::deque<Direction> AutoMode::FindPath(const Robot& robot, CellType desiredCell, const std::vector<CellType>& forbiddenCells) const
 {
-    const auto [x, y] = robot.GetPosition();
-    const auto initialPoint = Point{ x, y };
-    return FindPath(desiredCell, initialPoint, forbiddenCells);
+    std::deque<Point> points;
+    std::deque<Direction> directions;
+    const auto& [x, y] = robot.GetPosition();
+    points.emplace_back(Point{ x, y });
+    if(ExploreMap(points, desiredCell, forbiddenCells))
+    {
+        directions = Convert(points);
+    }
+    return directions;
 }
 
 }
