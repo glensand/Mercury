@@ -49,6 +49,8 @@ bool AutoMode::ExploreMap(std::deque<Point>& points, CellType desiredCell, const
         if (!terrain.IsCellOnBoard(point.X, point.Y) || std::find(std::cbegin(points), std::cend(points), point) != std::cend(points))
             continue;
         auto&& cell = terrain.GetCell(point.X, point.Y);
+        if (cell.GetRobot() != nullptr)
+            continue;
         if(cell.GetType() == desiredCell)
         {
             points.emplace_back(point);

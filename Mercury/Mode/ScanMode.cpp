@@ -27,6 +27,8 @@ void ScanMode::OnFrame()
             break; // no available motions
         }
     }
+
+    m_iterations = 0;
 }
 
 bool ScanMode::Step() const

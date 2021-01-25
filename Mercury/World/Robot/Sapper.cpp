@@ -12,6 +12,21 @@ Sapper::Sapper(IWorld& world, Terrain& exploredTerrain)
     InitializePosition();
 }
 
+void Sapper::InitializePosition()
+{
+    while (true)
+    {
+        const auto x = rand() % m_exploredTerrain.GetSizeX();
+        const auto y = rand() % m_exploredTerrain.GetSizeY();
+        auto&& cell = m_exploredTerrain.GetCell(x, y);
+        if (CanBeSetOnCell(cell))
+        {
+            Move(x, y);
+            break;
+        }
+    }
+}
+
 void Sapper::Delouse()
 {
     ClearCell(CellType::Bomb);
