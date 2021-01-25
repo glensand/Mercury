@@ -15,12 +15,17 @@ class AutoMode : public ModeBase
 {
 public:
 
-    struct Point
+    struct Point final
     {
         std::size_t X;
         std::size_t Y;
 
         const Point* Prev{ nullptr };
+
+        bool operator==(const Point& p) const
+        {
+            return p.X == X && p.Y == Y;
+        }
     };
 
     using TDirectionMap = std::unordered_map<Direction, std::function<Point(const Point& p)>>;
@@ -40,8 +45,10 @@ private:
     static Point Right(const Point& p);
     static Point Left(const Point& p);
 
-    std::deque<Direction> FindPath(CellType desiredCell, const Point& cur, const std::vector<CellType>& forbiddenCells) const;
+    bool ExploreMap(std::deque<Point>& points, CellType desiredCell, const std::vector<CellType>& forbiddenCells) const;
 
+    std::deque<Direction> Convert(const std::deque<Point>& points) const;
+    Direction ComputeDirection(const Point& from, const Point& to) const;
     mutable TDirectionMap m_directions;
 };
 
