@@ -21,7 +21,22 @@ void GrabMode::OnFrame()
     }
 }
 
-bool GrabMode::Step() const
+void GrabMode::ProcessPath(Robot& robot, const std::deque<Direction>& path)
+{
+    for (auto&& direction : path)
+    {
+        robot.Move(direction);
+        Render();
+    }
+}
+
+bool GrabMode::Step()
+{
+    Delouse();
+    return Collect();
+}
+
+bool GrabMode::Collect()
 {
     auto&& collector = m_gameInterface.Player->GetCollector();
     const std::vector<CellType> forbiddenCells = { CellType::Bomb, CellType::Rock, CellType::Unknown };
@@ -29,14 +44,22 @@ bool GrabMode::Step() const
     if (path.empty())
         return false;
 
-    for (auto&& direction : path)
-    {
-        collector.Move(direction);
-        Render();
-    }
-
+    ProcessPath(collector, path);
     collector.Collect();
     return true;
+}
+
+void GrabMode::Delouse()
+{
+    const auto sapper = m_gameInterface.Player->GetSapper();
+    if (sapper == nullptr)
+        return;
+    const std::vector<CellType> forbiddenCells = { CellType::Rock, CellType::Unknown };
+    auto path = FindPath(*sapper, CellType::Bomb, forbiddenCells);
+    if (path.empty())
+        return;
+    ProcessPath(*sapper, path);
+    sapper->Delouse();
 }
 
 }

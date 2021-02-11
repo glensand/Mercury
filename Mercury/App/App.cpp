@@ -60,6 +60,9 @@ void App::OnFrame() const
         m_gameInterface.CommandServer->Execute(command);
 
         m_gameInterface.Mode->OnFrame();
+
+        Render();
+        m_gameInterface.View->Present();
     }
 }
 

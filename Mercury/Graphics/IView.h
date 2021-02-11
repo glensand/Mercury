@@ -4,7 +4,7 @@
 namespace merc
 {
 
-struct Player;
+class Player;
 
 class IView
 {

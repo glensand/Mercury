@@ -13,6 +13,8 @@ public:
     virtual ~Sapper() = default;
     Sapper(IWorld& world, Terrain& exploredTerrain);
 
+    virtual void InitializePosition() override;
+
     void Delouse();
 private:
     virtual bool CanBeSetOnCell(const Cell& cell) const override;

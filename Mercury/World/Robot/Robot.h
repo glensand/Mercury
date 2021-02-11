@@ -41,7 +41,7 @@ public:
     virtual ~Robot();
     Robot(RobotType type, IWorld& world, Terrain& terrain);
 
-    void InitializePosition();
+    virtual void InitializePosition();
 
     void Move(Direction direction);
     void Move(size_t x, size_t y);
@@ -55,6 +55,7 @@ public:
     RobotType GetType() const;
 
 protected:
+
     virtual bool CanBeSetOnCell(const Cell& cell) const = 0;
 
     bool IsPositionAvailable(size_t x, size_t y) const;

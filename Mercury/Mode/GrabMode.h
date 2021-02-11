@@ -17,7 +17,10 @@ public:
 
 private:
 
-    bool Step() const;
+    void Delouse();
+    void ProcessPath(Robot& robot, const std::deque<Direction>& path);
+    bool Collect();
+    bool Step();
 };
 
 }
