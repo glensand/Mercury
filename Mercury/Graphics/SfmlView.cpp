@@ -46,7 +46,7 @@ const std::string& SfmlView::ScanConsole()
             continue;
 
         if(event.text.unicode != Backspace)
-            m_consoleInput.push_back(event.text.unicode);
+            m_consoleInput.push_back(char(event.text.unicode));
         else if (!m_consoleInput.empty())
             m_consoleInput.pop_back();
 

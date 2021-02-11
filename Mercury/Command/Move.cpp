@@ -18,7 +18,7 @@ void Move::ExecuteImpl(GameInterface& gameInterface)
     gameInterface.Player->GetCollector().Move(m_direction);
 }
 
-void Move::UndoImpl(GameInterface& gameInterface)
+void Move::UndoImpl(GameInterface&)
 {
     // get opposite direction and move...
 }

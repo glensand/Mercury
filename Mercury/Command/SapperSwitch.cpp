@@ -20,7 +20,7 @@ void SapperSwitch::Execute(GameInterface& gameInterface)
         gameInterface.Player->RemoveSapper();
 }
 
-void SapperSwitch::Undo(GameInterface& gameInterface)
+void SapperSwitch::Undo(GameInterface&)
 {
 
 }

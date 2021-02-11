@@ -11,7 +11,7 @@ void Grab::ExecuteImpl(GameInterface& gameInterface)
     gameInterface.Player->GetCollector().Collect();
 }
 
-void Grab::UndoImpl(GameInterface& gameInterface)
+void Grab::UndoImpl(GameInterface&)
 {
 
 }

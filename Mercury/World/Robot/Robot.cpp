@@ -88,11 +88,6 @@ bool Robot::IsPositionAvailable(size_t x, size_t y) const
         && IsPositionAvailableImpl(x, y);
 }
 
-bool Robot::IsPositionAvailableImpl(size_t x, size_t y) const
-{
-    return true;
-}
-
 std::pair<size_t, size_t> Robot::ComputeDesiredPosition(Direction dir) const
 {
     auto x = m_x;

@@ -41,7 +41,7 @@ void CellView::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void CellView::InitializeShape()
 {
     m_shape.setTexture(Texture(CellType::Unknown), true);
-    m_shape.setPosition(m_x, m_y);
+    m_shape.setPosition(float(m_x), float(m_y));
 }
 
 void CellView::RenderRobot(const Robot& robot)

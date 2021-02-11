@@ -29,7 +29,7 @@ void ChangeMode::Execute(GameInterface& gameInterface)
         });
 }
 
-void ChangeMode::Undo(GameInterface& gameInterface)
+void ChangeMode::Undo(GameInterface&)
 {
     // TODO:: cash prev mode
 }

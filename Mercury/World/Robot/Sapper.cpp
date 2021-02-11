@@ -39,4 +39,10 @@ bool Sapper::CanBeSetOnCell(const Cell& cell) const
         && cell.GetRobot() == nullptr;
 }
 
+bool Sapper::IsPositionAvailableImpl(size_t, size_t) const
+{
+    return true;
+}
+
+
 }

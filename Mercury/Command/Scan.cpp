@@ -11,7 +11,7 @@ void Scan::ExecuteImpl(GameInterface& gameInterface)
     gameInterface.Player->GetCollector().Scan();
 }
 
-void Scan::UndoImpl(GameInterface& gameInterface)
+void Scan::UndoImpl(GameInterface&)
 {
 
 }
