@@ -21,7 +21,7 @@ void GrabMode::OnFrame()
     }
 }
 
-bool GrabMode::Step()
+bool GrabMode::Step() const
 {
     auto&& collector = m_gameInterface.Player->GetCollector();
     const std::vector<CellType> forbiddenCells = { CellType::Bomb, CellType::Rock, CellType::Unknown };

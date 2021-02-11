@@ -17,7 +17,7 @@ public:
 
 private:
 
-    bool Step();
+    bool Step() const;
 };
 
 }
