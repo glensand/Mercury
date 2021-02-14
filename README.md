@@ -7,6 +7,7 @@ Each cell may contain one of the following types of entity:
   - Empty, just free space
   - Apple or good, something for the collector, 1 apple costs 1 point
   - Bomb, a collector could not be placed on this type of cell, but sapper may delouse it and make it of Empty type
+
 Robots also divided into two types:
   - Sapper, to delouse bombs
   - Collector to scan the map and collect apples
@@ -26,7 +27,7 @@ There are three different game modes:
 The mode may be changed via next command: SET_MODE [manual|scan N|auto]. N is a count of the scanning iterations which the collector will try to do.
 
 To add or remove the sapper use folowing commands:
-- SAPPER_ON to add sapper
-- SAPPER_OFF to remove sapper
+- SAPPER ON to add sapper
+- SAPPER OFF to remove sapper
 
 This student project was quickly developed for a good friend of mine
