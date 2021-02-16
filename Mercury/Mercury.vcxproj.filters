@@ -65,10 +65,16 @@
     <ClCompile Include="Mode\ModeBase.cpp" />
     <ClCompile Include="Input\ConsoleArgs.cpp" />
     <ClCompile Include="Graphics\SfmlView.cpp" />
-    <ClCompile Include="Input\CommandParser.cpp" />
     <ClCompile Include="Graphics\CellView.cpp" />
     <ClCompile Include="Graphics\TerrainView.cpp" />
     <ClCompile Include="Mode\AutoMode.cpp" />
+    <ClCompile Include="Input\ParserManager.cpp" />
+    <ClCompile Include="Input\MoveParser.cpp" />
+    <ClCompile Include="Input\ChangeModeParser.cpp" />
+    <ClCompile Include="Input\SapperParser.cpp" />
+    <ClCompile Include="Input\ScanParser.cpp" />
+    <ClCompile Include="Input\GrabParser.cpp" />
+    <ClCompile Include="Input\ParserConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command\ICommand.h">
@@ -126,10 +132,16 @@
     <ClInclude Include="Mode\ModeBase.h" />
     <ClInclude Include="Input\ConsoleArgs.h" />
     <ClInclude Include="Graphics\SfmlView.h" />
-    <ClInclude Include="Input\CommandParser.h" />
     <ClInclude Include="Input\ICommandParser.h" />
     <ClInclude Include="Graphics\CellView.h" />
     <ClInclude Include="Graphics\TerrainView.h" />
     <ClInclude Include="Mode\AutoMode.h" />
+    <ClInclude Include="Input\ParserManager.h" />
+    <ClInclude Include="Input\MoveParser.h" />
+    <ClInclude Include="Input\ChangeModeParser.h" />
+    <ClInclude Include="Input\SapperParser.h" />
+    <ClInclude Include="Input\ScanParser.h" />
+    <ClInclude Include="Input\GrabParser.h" />
+    <ClInclude Include="Input\ParserConfig.h" />
   </ItemGroup>
 </Project>

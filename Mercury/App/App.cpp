@@ -1,6 +1,7 @@
 #include "App.h"
-#include "Input/CommandParser.h"
+#include "Input/ParserManager.h"
 #include "Input/ConsoleArgs.h"
+#include "Input/ParserConfig.h"
 #include "World/World.h"
 #include "World/Terrain/TerrainLoader.h"
 #include "Player/Player.h"
@@ -17,7 +18,6 @@ App::~App()
 {
     delete m_gameInterface.Player;
     delete m_gameInterface.World;
-    delete m_gameInterface.CommandParser;
     delete m_gameInterface.CommandServer;
     delete m_gameInterface.View;
     delete m_gameInterface.Mode;
@@ -107,7 +107,9 @@ void App::CreateView()
 
 void App::CreateInput()
 {
-    m_gameInterface.CommandParser = new CommandParser;
+    m_gameInterface.CommandParser = &ParserManager::Instance();
+    ParserConfig config("../Misc/parser-config.json");
+    ParserManager::Instance().Initialize(config);
 }
 
 void App::CreateCommandServer()

@@ -86,9 +86,9 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;SFML_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Mercury; $(SolutionDir)Deps\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Deps\rapidjson-1.1.0;$(SolutionDir)Mercury;$(SolutionDir)Deps\SFML\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -158,8 +158,14 @@
     <ClCompile Include="Graphics\CellView.cpp" />
     <ClCompile Include="Graphics\SfmlView.cpp" />
     <ClCompile Include="Graphics\TerrainView.cpp" />
+    <ClCompile Include="Input\ChangeModeParser.cpp" />
     <ClCompile Include="Input\ConsoleArgs.cpp" />
-    <ClCompile Include="Input\CommandParser.cpp" />
+    <ClCompile Include="Input\GrabParser.cpp" />
+    <ClCompile Include="Input\MoveParser.cpp" />
+    <ClCompile Include="Input\ParserConfig.cpp" />
+    <ClCompile Include="Input\ParserManager.cpp" />
+    <ClCompile Include="Input\SapperParser.cpp" />
+    <ClCompile Include="Input\ScanParser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mode\AutoMode.cpp" />
     <ClCompile Include="Mode\GrabMode.cpp" />
@@ -191,9 +197,15 @@
     <ClInclude Include="Graphics\IView.h" />
     <ClInclude Include="Graphics\SfmlView.h" />
     <ClInclude Include="Graphics\TerrainView.h" />
+    <ClInclude Include="Input\ChangeModeParser.h" />
     <ClInclude Include="Input\ConsoleArgs.h" />
-    <ClInclude Include="Input\CommandParser.h" />
+    <ClInclude Include="Input\GrabParser.h" />
+    <ClInclude Include="Input\MoveParser.h" />
+    <ClInclude Include="Input\ParserConfig.h" />
+    <ClInclude Include="Input\ParserManager.h" />
     <ClInclude Include="Input\ICommandParser.h" />
+    <ClInclude Include="Input\SapperParser.h" />
+    <ClInclude Include="Input\ScanParser.h" />
     <ClInclude Include="Mode\AutoMode.h" />
     <ClInclude Include="Mode\GrabMode.h" />
     <ClInclude Include="Mode\IMode.h" />

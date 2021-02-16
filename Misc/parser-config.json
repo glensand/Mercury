@@ -1,0 +1,9 @@
+{ 
+    "Parsers" : [
+        { "Command" : "MOVE", "Parser" : "MoveParser" },
+        { "Command" : "GRAB", "Parser" : "GrabParser" },
+        { "Command" : "SCAN", "Parser" : "ScanParser" },
+        { "Command" : "SET_MODE", "Parser" : "ChangeModeParser" },
+        { "Command" : "SAPPER", "Parser" : "SapperParser" }
+    ]
+}
