@@ -1,7 +1,8 @@
 #include "App.h"
-#include "Input/ParserManager.h"
+#include "Input/CommandParser.h"
 #include "Input/ConsoleArgs.h"
 #include "Input/ParserConfig.h"
+#include "Input/ParserFactory.h"
 #include "World/World.h"
 #include "World/Terrain/TerrainLoader.h"
 #include "Player/Player.h"
@@ -107,9 +108,10 @@ void App::CreateView()
 
 void App::CreateInput()
 {
-    m_gameInterface.CommandParser = &ParserManager::Instance();
+    auto* commandParser = new CommandParser;
     ParserConfig config("../Misc/parser-config.json");
-    ParserManager::Instance().Initialize(config);
+    commandParser->Initialize(config, ParserFactory::Instance());
+    m_gameInterface.CommandParser = commandParser;
 }
 
 void App::CreateCommandServer()

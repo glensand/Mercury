@@ -1,5 +1,5 @@
 #include "GrabParser.h"
-#include "Input/ParserManager.h"
+#include "Input/ParserFactory.h"
 #include "Command/Grab.h"
 
 #include <iostream>

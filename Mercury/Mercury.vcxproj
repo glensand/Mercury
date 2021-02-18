@@ -162,8 +162,9 @@
     <ClCompile Include="Input\ConsoleArgs.cpp" />
     <ClCompile Include="Input\GrabParser.cpp" />
     <ClCompile Include="Input\MoveParser.cpp" />
+    <ClCompile Include="Input\CommandParser.cpp" />
     <ClCompile Include="Input\ParserConfig.cpp" />
-    <ClCompile Include="Input\ParserManager.cpp" />
+    <ClCompile Include="Input\ParserFactory.cpp" />
     <ClCompile Include="Input\SapperParser.cpp" />
     <ClCompile Include="Input\ScanParser.cpp" />
     <ClCompile Include="main.cpp" />
@@ -200,9 +201,11 @@
     <ClInclude Include="Input\ChangeModeParser.h" />
     <ClInclude Include="Input\ConsoleArgs.h" />
     <ClInclude Include="Input\GrabParser.h" />
+    <ClInclude Include="Input\IParserFactory.h" />
     <ClInclude Include="Input\MoveParser.h" />
+    <ClInclude Include="Input\CommandParser.h" />
     <ClInclude Include="Input\ParserConfig.h" />
-    <ClInclude Include="Input\ParserManager.h" />
+    <ClInclude Include="Input\ParserFactory.h" />
     <ClInclude Include="Input\ICommandParser.h" />
     <ClInclude Include="Input\SapperParser.h" />
     <ClInclude Include="Input\ScanParser.h" />

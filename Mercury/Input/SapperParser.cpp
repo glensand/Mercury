@@ -1,5 +1,5 @@
 #include "SapperParser.h"
-#include "Input/ParserManager.h"
+#include "Input/ParserFactory.h"
 #include "Command/SapperSwitch.h"
 
 #include <iostream>

@@ -1,5 +1,5 @@
 #include "ChangeModeParser.h"
-#include "Input/ParserManager.h"
+#include "Input/ParserFactory.h"
 #include "Command/ChangeMode.h"
 
 #include <iostream>

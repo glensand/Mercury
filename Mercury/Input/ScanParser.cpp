@@ -1,5 +1,5 @@
 #include "ScanParser.h"
-#include "Input/ParserManager.h"
+#include "Input/ParserFactory.h"
 #include "Command/Scan.h"
 
 #include <iostream>

@@ -1,5 +1,5 @@
 #include "MoveParser.h"
-#include "Input/ParserManager.h"
+#include "Input/ParserFactory.h"
 #include "Command/Move.h"
 
 #include <iostream>
