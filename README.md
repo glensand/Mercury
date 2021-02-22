@@ -1,4 +1,10 @@
 # Mercury
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![GitHub last commit](https://img.shields.io/github/last-commit/glensand/Mercury?color=red&style=plastic)
+![GitHub stars](https://img.shields.io/github/stars/glensand/Mercury?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/glensand/Mercury?style=social)
+![GitHub followers](https://img.shields.io/github/followers/glensand?style=social)
+
 The project represents a casual game with robots on mars;
 There is a board divided into cells, and robots placed on some of them. When the game starts, the map is hidden and only one robot is placed on the single-cell: the robot of sapper type.
 
@@ -11,6 +17,9 @@ Each cell may contain one of the following types of entity:
 Robots also divided into two types:
   - Sapper, to delouse bombs
   - Collector to scan the map and collect apples
+
+## System requirments
+*Visual Studio 2019*, *c++17*
 
 ## How to build
 You should use Microsoft Visual Studio 2019 to build this project. Just clone the whole repository and calmly run the build. All dependencies will be cloned too, it is not needed to find additional dependencies.
