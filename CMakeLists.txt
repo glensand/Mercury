@@ -8,5 +8,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 configure_file(mercuryconfig.h.in mercuryconfig.h)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-add_subdirectory(mercury)
-add_subdirectory(map_generator)
+add_subdirectory(app)
+add_subdirectory(mapgenerator)

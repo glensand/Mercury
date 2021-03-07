@@ -1,0 +1,122 @@
+#include "app.h"
+#include "input/commandparser.h"
+#include "input/consoleargs.h"
+#include "input/parserconfig.h"
+#include "input/parserfactory.h"
+#include "world/world.h"
+#include "world/terrain/terrainloader.h"
+#include "player/player.h"
+#include "command/commandserver.h"
+#include "mode/manualmode.h"
+#include "graphics/sfmlview.h"
+
+#include <sstream>
+
+namespace merc
+{
+
+App::~App()
+{
+    delete m_gameInterface.Player;
+    delete m_gameInterface.World;
+    delete m_gameInterface.CommandServer;
+    delete m_gameInterface.View;
+    delete m_gameInterface.Mode;
+}
+
+void App::Open(ConsoleArgs& args)
+{
+    CreateWorld(args);
+    CreateInput();
+    CreateCommandServer();
+    CreatePlayer();
+    CreateMode();
+    CreateView();
+}
+
+void App::Run() const
+{
+    OnFirstFrame();
+
+    for(;;)
+    {
+        OnFrame();
+    }
+}
+
+void App::Render() const
+{
+    m_gameInterface.View->Render(*m_gameInterface.Player);
+}
+
+void App::OnFirstFrame() const
+{
+    Render();
+}
+
+void App::OnFrame() const
+{
+    if(const auto command = ScanCommand())
+    {
+        m_gameInterface.CommandServer->Execute(command);
+
+        m_gameInterface.Mode->OnFrame();
+
+        Render();
+        m_gameInterface.View->Present();
+    }
+}
+
+ICommand* App::ScanCommand() const
+{
+    auto&& inputCommand = m_gameInterface.View->ScanConsole();
+    std::stringstream commandStream(inputCommand);
+    return m_gameInterface.CommandParser->Parse(commandStream);
+}
+
+void App::CreateWorld(ConsoleArgs& args)
+{
+    // TODO use named args..., inject loader via factory/constructor
+    const TerrainLoader loader(args.GetArg(1));
+    m_gameInterface.World = new World(loader.Load());
+}
+
+void App::CreatePlayer()
+{
+    m_gameInterface.Player = new Player(m_gameInterface);
+}
+
+void App::CreateMode()
+{
+    m_gameInterface.Mode = new ManualMode(m_gameInterface);
+
+    // we forced to update view for each simulation step
+    // honest async render operation isn't suitable in this case
+    m_gameInterface.Mode->SetOnStepCallback([&]
+        {
+            Render();
+            m_gameInterface.View->Present();
+        });
+}
+
+void App::CreateView()
+{
+    m_gameInterface.View = new SfmlView;
+
+    m_gameInterface.View->Open();
+}
+
+void App::CreateInput()
+{
+    auto* commandParser = new CommandParser;
+    ParserConfig config("../Misc/parser-config.json");
+    commandParser->Initialize(config, ParserFactory::Instance());
+    m_gameInterface.CommandParser = commandParser;
+}
+
+void App::CreateCommandServer()
+{
+    m_gameInterface.CommandServer = new CommandServer(m_gameInterface);
+}
+
+}
